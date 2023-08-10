@@ -17,22 +17,13 @@ router.post('/register',
     body('emailAddress')
     .isEmail()
     .normalizeEmail()
-    .custom(async(value, { req }) => {
-        return User.findOne({ emailAddress: value }).then(userDoc => {
-            if (userDoc) {
-              return Promise.reject(
-                'E-Mail exists already, please pick a different one.'
-              );
-            }
-          });
-        // const userDoc = await checkIfAccountExistByEmailAddress(value.toLowerCase())
-        // if (userDoc) {
-        //     return Promise.reject(
-        //         'E-Mail exists already, please pick a different one.'
-        //       );
-        //   } 
-      })
-    .withMessage('Please enter a valid email address'),
+    .withMessage('Please enter a valid email address')
+    .custom(async (value, { req }) => {
+        const userDoc = await checkIfAccountExistByEmailAddress(value.toLowerCase());
+        if (userDoc) {
+            return Promise.reject('E-Mail exists already, please pick a different one.');
+        }
+    }),
     body('password')
     .isString()
     .isLength({min: 8, max: 32})

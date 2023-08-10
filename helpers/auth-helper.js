@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 exports.hashPassword = async (plaintTextPassword) => {
     const saltRounds = 10;
@@ -25,7 +26,7 @@ exports.hashPassword = async (plaintTextPassword) => {
 
   exports.checkIfAccountExistByEmailAddress = async (emailAddress) => {
     return User.findOne({
-      email: emailAddress.toLowerCase(),
+      emailAddress: emailAddress.toLowerCase(),
       password: {
         $ne: null,
       }
