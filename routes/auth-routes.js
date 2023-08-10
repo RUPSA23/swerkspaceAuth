@@ -14,6 +14,10 @@ router.get('/', authController.getHome);
 // Register API
 router.post('/register',
 [
+    body('firstName')
+    .isString(),
+    body('lastName')
+    .isString(),
     body('emailAddress')
     .isEmail()
     .normalizeEmail()
@@ -30,5 +34,23 @@ router.post('/register',
     .trim()
     .withMessage('Password must be at least 8 characters long')
 ], authController.register);
+
+// Login API
+router.post('/login',
+[
+    body('emailAddress')
+    .isEmail()
+    .normalizeEmail()
+    .withMessage('Please enter a valid email address.'),
+    body('password')
+    .isString()
+    .isLength({min: 8, max: 32})
+    .trim()
+    .withMessage('Password must be at least 8 characters long'),
+    body('rememberMe')
+    .isBoolean()
+    .default('false')
+],
+authController.login);
 
 module.exports = router;

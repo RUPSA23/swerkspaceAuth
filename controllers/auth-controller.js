@@ -54,3 +54,54 @@ exports.getHome = async (req, res) => {
         console.log(err);
     }
 }
+
+exports.login = async (req, res) => {
+    try{
+        const email = req.body.emailAddress;
+        const password = req.body.password;
+        const rememberMe =  req.body.rememberMe;
+  
+            // Check If User Does Exist
+            const user = isStringEmail(email) && 
+            await checkIfAccountExistByEmailAddress(
+              email.toLowerCase()
+            )
+      
+            if(user){
+          // Compare Password And Log User In
+          if (await user.comparePassword(password, user.password)) {
+  
+            // Prepare JWT Data
+            const userData = {
+              userId: user._id,
+              email: user.email,
+              validTill: new Date().setDate(
+                new Date().getDate() + (rememberMe ? 90 : 7)
+              ),
+            };
+  
+            // Generate JWT Token
+            const userToken = await generateToken(userData);
+  
+            // Return Response
+            if (userToken) {
+              // Return The Response
+              return res.status(200).send({
+                message: "Login Successful",
+                token: userToken,
+              });
+            } else {
+              return res.status(500).send({
+                message: "Unable To Generate JWT Token",
+              });
+            }
+          }
+            }
+    } catch(err) {
+    // Return Error And Log It Over Console
+    console.log(`auth-controller-controller -> login : ${err.message}`);
+    return res.status(500).send({
+      errors: err.message,
+    });
+    }
+  }

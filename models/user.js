@@ -3,6 +3,15 @@ const bcrypt = require('bcrypt');
 
 const Schema = mongoose.Schema;
 
+const authTokenSchema = new mongoose.Schema(
+    {
+      token: {
+        type: String,
+        required: true,
+      }
+    }
+  );
+
 const userSchema = new Schema({
     userType: {
         type: String,
@@ -28,7 +37,8 @@ const userSchema = new Schema({
         type: String,
         required: false,
         default: "pending"
-    }
+    },
+    authTokens: [authTokenSchema]
 },
 { timestamps: true }
 );
@@ -36,7 +46,6 @@ const userSchema = new Schema({
 
 // Compare password with hashed password in database
 userSchema.methods.comparePassword = async function (candidatePassword) {
-    // console.log("hashed password" + this.password)
     return await bcrypt.compare(candidatePassword, this.password);
   };
   
