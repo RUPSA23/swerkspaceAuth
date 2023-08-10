@@ -5,8 +5,7 @@ const {
     checkIfAccountExistByEmailAddress,
     isStringEmail,
     generateToken,
-    hashPassword,
-    generatePhoneOTP
+    hashPassword
   } = require("../helpers/auth-helper");
 
 exports.getHome = async (req, res) => {
@@ -105,3 +104,24 @@ exports.login = async (req, res) => {
     });
     }
   }
+
+  exports.logout = async (req, res) => {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      await User.updateOne(
+        { _id: req.userData._id },
+        {
+          $pull: { authTokens: { token } },
+        }
+      );
+      return res.status(200).send({
+        message: "Logout Successful",
+      });
+    } catch (error) {
+      // Return Error And Log It Over Console
+      console.log(`auth-controller-controller -> logout : ${error.message}`);
+      return res.status(500).send({
+        errors: error.message,
+      });
+    }
+  };

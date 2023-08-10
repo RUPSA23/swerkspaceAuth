@@ -3,6 +3,7 @@ const express = require('express');
 const authController = require('../controllers/auth-controller');
 const { body } = require('express-validator');
 const User = require('../models/user');
+const authMiddleware = require('../middlewares/auth-middleware');
 const {
     checkIfAccountExistByEmailAddress
   } = require("../helpers/auth-helper");
@@ -52,5 +53,8 @@ router.post('/login',
     .default('false')
 ],
 authController.login);
+
+// Logout API 
+router.delete('/logout', authMiddleware, authController.logout);
 
 module.exports = router;
