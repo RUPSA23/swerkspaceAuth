@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const authController = require('../controllers/auth-controller');
-const { body } = require('express-validator');
+const { check, body } = require('express-validator');
 const User = require('../models/user');
 const authMiddleware = require('../middlewares/auth-middleware');
 const {
@@ -9,24 +9,26 @@ const {
   } = require("../helpers/auth-helper");
 
 const router = express.Router();
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerDocument = require('../Utils/swagger');
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../Utils/swagger');
+const swaggerDocument = require('../swagger.json');
 // router.use('/api-docs', swaggerUi.serve);
 // router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 console.log(swaggerDocument);
 
-/**
- * @swagger
- * /home:
- *   get:
- *     description: Get Home Page!
- *     responses:
- *       200:
- *         description: Success
- */
-router.get('/home', authController.getHome);
+// /**
+//  * @swagger
+//  * /:
+//  *   get:
+//  *     description: Get Home Page!
+//  *     responses:
+//  *       200:
+//  *         description: Success
+//  */
+router.get('/', authController.getHome);
 
 // Register API
 router.post('/register',
@@ -50,7 +52,8 @@ router.post('/register',
     .isLength({min: 8, max: 32})
     .trim()
     .withMessage('Password must be at least 8 characters long')
-], authController.register);
+],
+ authController.register);
 
 // Login API
 router.post('/login',

@@ -8,20 +8,6 @@ const swaggerOptions = {
         title: 'API Docs',
         version: '1.0.0',
       },
-    //   components: {
-    //     securitySchemas: {
-    //         bearerAuth: {
-    //             type: "http",
-    //             scheme: "bearer",
-    //             bearerFormat: "JWT"
-    //         },
-    //     },
-    //   },
-    //   security: [
-    //     {
-    //         bearerAuth: [],
-    //     }
-    //   ]
     },
     apis: ['../routes/*.js'], // files containing annotations as above
   };

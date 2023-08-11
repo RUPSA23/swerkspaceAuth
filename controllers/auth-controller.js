@@ -25,6 +25,8 @@ exports.getHome = async (req, res) => {
         const emailAddress = req.body.emailAddress;
         const password = req.body.password;
 
+        console.log(userType, firstName, lastName, emailAddress, password)
+
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             console.log(errors.array())

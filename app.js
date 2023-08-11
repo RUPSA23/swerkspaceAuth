@@ -3,10 +3,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 require("dotenv").config();
 
-
 const app = express();
-
 const authRoutes = require('./routes/auth-routes');
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
