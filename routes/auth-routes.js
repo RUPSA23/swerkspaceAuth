@@ -9,8 +9,24 @@ const {
   } = require("../helpers/auth-helper");
 
 const router = express.Router();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../Utils/swagger');
+// router.use('/api-docs', swaggerUi.serve);
+// router.get('/api-docs', swaggerUi.setup(swaggerDocument));
 
-router.get('/', authController.getHome);
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+console.log(swaggerDocument);
+
+/**
+ * @swagger
+ * /home:
+ *   get:
+ *     description: Get Home Page!
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+router.get('/home', authController.getHome);
 
 // Register API
 router.post('/register',
