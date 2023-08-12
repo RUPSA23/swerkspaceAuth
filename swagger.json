@@ -60,6 +60,39 @@
                     }
                 }
             }
+        },
+        "/login": {
+            "post": {
+                "summary": "User Login",
+                "description": "User Login",
+                "produces": ["application/json"],
+                "consumes": ["application/json"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User login object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/LoginUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/usersResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -109,6 +142,20 @@
                 },
                 "accountStatus": {
                     "type": "string"
+                }
+            }
+        },
+        "LoginUser": {
+            "type": "object",
+            "properties": {
+                "emailAddress": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "rememberMe": {
+                    "type": "boolean"
                 }
             }
         },
