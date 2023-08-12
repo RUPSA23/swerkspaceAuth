@@ -11,10 +11,10 @@
     "schemes": ["http"],
     "host": "localhost:4000",
     "basePath": "/",
-    "paths" : {
-        "/" : {
-            "get" : {
-                "summary" : "Get Home Page",
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Get Home Page",
                 "description": "Get Home Page",
                 "produces": ["application/json"],
                 "parameters": [],
@@ -28,9 +28,9 @@
                 }
             }
         },
-        "/register" : {
-            "post" : {
-                "summary" : "User registration",
+        "/register": {
+            "post": {
+                "summary": "User registration",
                 "description": "User registration",
                 "produces": ["application/json"],
                 "consumes": ["application/json"],
@@ -38,16 +38,10 @@
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "task object",
+                        "description": "User registration object",
                         "required": true,
                         "schema": {
-                            "type": "object",
-                            "properties": {
-                                "user" : {
-                                    "type": "object",
-                                    "$ref": "#/definitions/User"
-                                } 
-                            }
+                            "$ref": "#/definitions/User"
                         }
                     }
                 ],
@@ -55,14 +49,11 @@
                     "200": {
                         "description": "successful operation",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/usersResponse"
-                            }
+                            "$ref": "#/definitions/usersResponse"
                         }
                     },
-                    "400": {
-                        "description": "Invalid status value",
+                    "422": {
+                        "description": "Unprocessable Entity",
                         "schema": {
                             "$ref": "#/definitions/InvalidResponse"
                         }
@@ -70,13 +61,13 @@
                 }
             }
         }
-    }, 
+    },
     "definitions": {
         "usersResponse": {
             "type": "object",
             "properties": {
                 "id": {
-                     "type": "integer"
+                    "type": "integer"
                 },
                 "userType": {
                     "type": "string"
@@ -131,7 +122,6 @@
                     "type": "string"
                 }
             }
-
         }
     }
 }
