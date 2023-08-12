@@ -9,23 +9,12 @@ const {
   } = require("../helpers/auth-helper");
 
 const router = express.Router();
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerDocument = require('../Utils/swagger');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 console.log(swaggerDocument);
 
-// /**
-//  * @swagger
-//  * /:
-//  *   get:
-//  *     description: Get Home Page!
-//  *     responses:
-//  *       200:
-//  *         description: Success
-//  */
 router.get('/', authController.getHome);
 
 // Register API

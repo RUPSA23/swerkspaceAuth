@@ -3,7 +3,7 @@
     "info": {
         "description": "This is a Swagger Documentation",
         "version": "1.0.0",
-        "title": "Tasks API",
+        "title": "Swerkspace API",
         "contact": {
             "email": "anusuya.bhattacharjee23@gmail.com"
         }
@@ -93,7 +93,37 @@
                     }
                 }
             }
-        }
+        },
+        "/logout": {
+            "delete": {
+                "summary": "User Logout",
+                "description": "User Logout",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "required": true,
+                        "description": "Bearer token",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Logout successful",
+                        "schema": {
+                            "$ref": "#/definitions/LogoutResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }        
     },
     "definitions": {
         "usersResponse": {
@@ -156,6 +186,22 @@
                 },
                 "rememberMe": {
                     "type": "boolean"
+                }
+            }
+        },
+        "LogoutResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "errors": {
+                    "type": "string"
                 }
             }
         },
