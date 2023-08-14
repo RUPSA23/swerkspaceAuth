@@ -9,32 +9,24 @@ const authRoutes = require('./routes/auth-routes');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Import Settings
+const {
+  _appProtocol,
+  _appPort,
+  _appUrl,
+  _dbProtocol,
+  _dbHost,
+  _dbPort,
+  _dbUser,
+  _dbPassword,
+  _dbName,
+} = require("./helpers/settings-helper");
+
 app.use(authRoutes);
 
-// Fetching ENV Variables
-const _dbProtocol = process.env.DB_PROTOCOL || "mongodb";
-const _dbHost = process.env.DB_HOST || "0.0.0.0";
-const _dbPort =
-  process.env.DB_PORT && process.env.DB_PORT !== ""
-    ? process.env.DB_PORT
-    : null;
-const _dbUser =
-  process.env.DB_USER && process.env.DB_USER !== ""
-    ? process.env.DB_USER
-    : null;
-const _dbPassword =
-  process.env.DB_PASSWORD && process.env.DB_PASSWORD !== ""
-    ? process.env.DB_PASSWORD
-    : null;
-const _dbName = process.env.DB_NAME || "SwerkspaceAuth";
-// const _mongoLog = !!(process.env.MONGO_LOG && process.env.MONGO_LOG === "1");
-
 // Creating Mongo URL
-const mongoUrl = `${_dbProtocol}://${_dbHost}${
-  _dbPort ? ":" + _dbPort : ""
-}/${_dbName}`;
-
-console.log("mongoUrl",mongoUrl);
+const mongoUrl = `${_dbProtocol}://${_dbHost}${_dbPort ? ":" + _dbPort : ""}/${_dbName}`;
+console.log("Mongo URI: ",mongoUrl);
 
 mongoose
   .connect(mongoUrl, {
@@ -48,20 +40,11 @@ mongoose
     autoIndex: true,
   })
   .then((result) => {
-    app.listen(process.env.APP_PORT, () => {
-      console.log(`Server is listening on port ${process.env.APP_PORT}`);
+    app.listen(_appPort, () => {
+      console.log(`Server is listening on port ${_appPort}`);
     });
   })
   .catch((err) => {
     console.error(err);
   });
 
-// mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.vwrmjau.mongodb.net/SwerkspaceAuth?retryWrites=true&w=majority`, { useNewUrlParser: true })
-// .then(result => {
-//     app.listen(process.env.PORT, () => {
-//       console.log(`Server is listening on port ${process.env.PORT}`);
-//     });
-// })
-// .catch(err => {
-//     console.error(err);
-// })
