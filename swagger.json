@@ -16,6 +16,7 @@
             "get": {
                 "summary": "Get Home Page",
                 "description": "Get Home Page",
+                "tags": ["Default"],
                 "produces": ["application/json"],
                 "parameters": [],
                 "responses": {
@@ -32,6 +33,7 @@
             "post": {
                 "summary": "User registration",
                 "description": "User registration",
+                "tags": ["Auth"],
                 "produces": ["application/json"],
                 "consumes": ["application/json"],
                 "parameters": [
@@ -65,6 +67,7 @@
             "post": {
                 "summary": "User Login",
                 "description": "User Login",
+                "tags": ["Auth"],
                 "produces": ["application/json"],
                 "consumes": ["application/json"],
                 "parameters": [
@@ -98,6 +101,7 @@
             "delete": {
                 "summary": "User Logout",
                 "description": "User Logout",
+                "tags": ["Auth"],
                 "produces": ["application/json"],
                 "parameters": [
                     {
