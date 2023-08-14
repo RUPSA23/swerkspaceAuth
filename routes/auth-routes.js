@@ -9,15 +9,137 @@ const {
   } = require("../helpers/auth-helper");
 
 const router = express.Router();
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.json');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
-router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-// console.log(swaggerDocument);
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            title: "Swerkspace API",
+            description: "This is a Swagger Documentation",
+            contact: {
+                email: "anusuya.bhattacharjee23@gmail.com"
+            },
+            servers: ["http://localhost:8000"]
+        }
+    },
+    apis: [path.join(__dirname, './auth-routes.js')] // Correct the path to your API file
+};
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+/**
+ * @swagger
+ * definitions:
+ *   usersResponse:
+ *     type: object
+ *     properties:
+ *       id:
+ *         type: integer
+ *       userType:
+ *         type: string
+ *       firstName:
+ *         type: string
+ *       lastName:
+ *         type: string
+ *       emailAddress:
+ *         type: string
+ *       password:
+ *         type: string
+ *       accountStatus:
+ *         type: string
+ *   User:
+ *     type: object
+ *     properties:
+ *       userType:
+ *         type: string
+ *       firstName:
+ *         type: string
+ *       lastName:
+ *         type: string
+ *       emailAddress:
+ *         type: string
+ *       password:
+ *         type: string
+ *       accountStatus:
+ *         type: string
+ *   LoginUser:
+ *     type: object
+ *     properties:
+ *       emailAddress:
+ *         type: string
+ *       password:
+ *         type: string
+ *       rememberMe:
+ *         type: boolean
+ *   LogoutResponse:
+ *     type: object
+ *     properties:
+ *       message:
+ *         type: string
+ *   ErrorResponse:
+ *     type: object
+ *     properties:
+ *       errors:
+ *         type: string
+ *   InvalidResponse:
+ *     type: object
+ *     properties:
+ *       statusCode:
+ *         type: string
+ *       message:
+ *         type: string
+ */
+
+// Routes
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: Get Home Page
+ *     description: Get Home Page
+ *     tags:
+ *       - Default
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *       400:
+ *         description: Invalid status value
+ */
 router.get('/', authController.getHome);
 
 // Register API
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: User registration
+ *     description: User registration
+ *     tags:
+ *       - Auth
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: User registration object
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         schema:
+ *           $ref: '#/definitions/usersResponse'
+ *       422:
+ *         description: Unprocessable Entity
+ *         schema:
+ *           $ref: '#/definitions/InvalidResponse'
+ */      
 router.post('/register',
 [
     body('firstName')
@@ -43,6 +165,35 @@ router.post('/register',
  authController.register);
 
 // Login API
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: User Login
+ *     description: User Login
+ *     tags:
+ *       - Auth
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         name: body
+ *         description: User Login object
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/LoginUser'
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         schema:
+ *           $ref: '#/definitions/usersResponse'
+ *       422:
+ *         description: Unprocessable Entity
+ *         schema:
+ *           $ref: '#/definitions/InvalidResponse'
+ */
 router.post('/login',
 [
     body('emailAddress')
@@ -61,6 +212,33 @@ router.post('/login',
 authController.login);
 
 // Logout API 
+/**
+ * @swagger
+ * /logout:
+ *   delete:
+ *     summary: User Logout
+ *     description: User Logout
+ *     tags:
+ *       - Auth
+ *     produces:
+ *       - application/json
+ *     consumes:
+ *       - application/json
+ *     parameters:
+ *       - in: header
+ *         name: authorization
+ *         description: Bearer token
+ *         required: true
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *         schema:
+ *           $ref: '#/definitions/LogoutResponse'
+ *       500:
+ *         description: Internal server error
+ *         schema:
+ *           $ref: '#/definitions/ErrorResponse'
+ */
 router.delete('/logout', authMiddleware, authController.logout);
 
 module.exports = router;

@@ -1,16 +1,19 @@
 const swaggerJsdoc = require('swagger-jsdoc');
+const path = require('path');
 
 const swaggerOptions = {
-    swaggerDefinition: {
-        // openapi: '3.0.0',
-        swagger: '2.0',
+  swaggerDefinition: {
       info: {
-        title: 'API Docs',
-        version: '1.0.0',
-      },
-    },
-    apis: ['../routes/*.js'], // files containing annotations as above
-  };
+          title: "Swerkspace API",
+          description: "This is a Swagger Documentation",
+          contact: {
+              email: "anusuya.bhattacharjee23@gmail.com"
+          },
+          servers: ["http://localhost:8000"]
+      }
+  },
+  apis: [path.join(__dirname, '../routes/auth-routes.js')] // Correct the path to your API file
+};
 
   const swaggerDocs = swaggerJsdoc(swaggerOptions);
   console.log(swaggerDocs);

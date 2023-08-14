@@ -2,6 +2,7 @@ class Settings {
     static _appProtocol = process.env.APP_PROTOCOL || "http";
     static _appUrl = process.env.APP_URL || "localhost";
     static _appPort = process.env.APP_PORT || "8000";
+    
     static _dbProtocol = process.env.DB_PROTOCOL || "mongodb";
     static _dbHost = process.env.DB_HOST || "localhost";
     static _dbPort = process.env.DB_PORT && process.env.DB_PORT !== "" ? process.env.DB_PORT : null;
