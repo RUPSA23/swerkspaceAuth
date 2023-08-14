@@ -13,7 +13,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 
 router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-console.log(swaggerDocument);
+// console.log(swaggerDocument);
 
 router.get('/', authController.getHome);
 

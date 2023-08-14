@@ -9,7 +9,7 @@
         }
     },
     "schemes": ["http"],
-    "host": "localhost:4000",
+    "host": "localhost:8000",
     "basePath": "/",
     "paths": {
         "/": {
