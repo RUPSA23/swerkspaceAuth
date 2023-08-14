@@ -13,8 +13,8 @@ app.use(authRoutes);
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.vwrmjau.mongodb.net/SwerkspaceAuth?retryWrites=true&w=majority`, { useNewUrlParser: true })
 .then(result => {
-    app.listen(4000, () => {
-      console.log('Server is listening on port 4000')
+    app.listen(process.env.PORT, () => {
+      console.log(`Server is listening on port ${process.env.PORT}`);
     });
 })
 .catch(err => {

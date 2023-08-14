@@ -12,7 +12,7 @@ const router = express.Router();
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger.json');
 
-router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+router.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 console.log(swaggerDocument);
 
 router.get('/', authController.getHome);
