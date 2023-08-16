@@ -9,23 +9,9 @@ const {
   } = require("../helpers/auth-helper");
 
 const router = express.Router();
-const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerDocs = require('../Utils/swagger');
 const swaggerUi = require("swagger-ui-express");
 
-const swaggerOptions = {
-    swaggerDefinition: {
-        info: {
-            title: "Swerkspace API",
-            description: "This is a Swagger Documentation",
-            contact: {
-                email: "anusuya.bhattacharjee23@gmail.com"
-            },
-            servers: ["http://localhost:8000"]
-        }
-    },
-    apis: [path.join(__dirname, './auth-routes.js')] // Correct the path to your API file
-};
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
 router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 /**

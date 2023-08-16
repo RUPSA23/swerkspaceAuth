@@ -12,7 +12,7 @@ const swaggerOptions = {
           servers: ["http://localhost:8000"]
       }
   },
-  apis: [path.join(__dirname, '../routes/auth-routes.js')] // Correct the path to your API file
+  apis: [path.join(__dirname, '../routes/*js')] // Correct the path to your API file
 };
 
   const swaggerDocs = swaggerJsdoc(swaggerOptions);
