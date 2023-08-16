@@ -9,6 +9,7 @@ const {
   } = require("../helpers/auth-helper");
 
 const router = express.Router();
+
 const swaggerDocs = require('../Utils/swagger');
 const swaggerUi = require("swagger-ui-express");
 
@@ -210,11 +211,8 @@ authController.login);
  *       - application/json
  *     consumes:
  *       - application/json
- *     parameters:
- *       - in: header
- *         name: authorization
- *         description: Bearer token
- *         required: true
+ *     security:
+ *       - bearerAuth: []   
  *     responses:
  *       200:
  *         description: Logout successful

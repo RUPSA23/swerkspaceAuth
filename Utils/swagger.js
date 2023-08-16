@@ -10,13 +10,27 @@ const swaggerOptions = {
               email: "anusuya.bhattacharjee23@gmail.com"
           },
           servers: ["http://localhost:8000"]
+      },
+      "securityDefinitions": {
+        "bearerAuth": {
+          "type": "apiKey",
+          "in": "header",
+          "name": "authorization",
+          "description": "Bearer token to access these api endpoints",
+          "scheme": "bearer"
+        }
+      },
+    security: [
+      {
+       "bearerAuth": []
       }
+]
   },
   apis: [path.join(__dirname, '../routes/*js')] // Correct the path to your API file
 };
 
   const swaggerDocs = swaggerJsdoc(swaggerOptions);
-  console.log(swaggerDocs);
+  // console.log(swaggerDocs);
 
 module.exports = swaggerDocs;
 
