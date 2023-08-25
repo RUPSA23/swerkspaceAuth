@@ -21,52 +21,72 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *   usersResponse:
  *     type: object
  *     properties:
- *       id:
- *         type: integer
- *       userType:
- *         type: string
- *       firstName:
- *         type: string
- *       lastName:
- *         type: string
- *       emailAddress:
- *         type: string
- *       password:
- *         type: string
- *       accountStatus:
- *         type: string
+ *       message: 
+ *          type: string
+ *          default: "Your Account Successfully Registered, You Can Login Now"
+ *       user: 
+ *          type: object
+ *          properties:
+ *            id:
+ *              type: integer
+ *              default: 64d4a9ed4df84e38fea30f3f
+ *            userType:
+ *              type: string
+ *              default: "Buyer"
+ *            firstName:
+ *              type: string
+ *              default: "Anusuya"
+ *            lastName:
+ *              type: string
+ *              default: "Bhattacharjee"
+ *            emailAddress:
+ *              type: string
+ *              default: "anusuya23@gmail.com"
+ *            password:
+ *              type: string
+ *              default: "admin12345"
  *   User:
  *     type: object
  *     properties:
  *       userType:
  *         type: string
+ *         default: "Buyer"
  *       firstName:
  *         type: string
+ *         default: "Anusuya"
  *       lastName:
  *         type: string
+ *         default: "Bhattacharjee"
  *       emailAddress:
  *         type: string
+ *         default: "anusuya23@gmail.com"
  *       password:
  *         type: string
- *       accountStatus:
- *         type: string
+ *         default: "admin12345"
  *   LoginUser:
  *     type: object
  *     properties:
  *       emailAddress:
  *         type: string
+ *         default: "anusuya23@gmail.com"
  *       password:
  *         type: string
+ *         default: "admin12345"
  *       rememberMe:
  *         type: boolean
+ *         default: true
  *   LogoutResponse:
  *     type: object
  *     properties:
  *       message:
  *         type: string
+ *         default: "Logout Successful"
  *   ErrorResponse:
  *     type: object
  *     properties:
+ *       statusCode:
+ *         type: string
+ *         default: "500"
  *       errors:
  *         type: string
  *   InvalidResponse:
@@ -74,8 +94,28 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties:
  *       statusCode:
  *         type: string
+ *         default: "500"
  *       message:
  *         type: string
+ *         default: "Unable To Generate JWT Token"
+ *   InvalidRegisterResponse:
+ *     type: object
+ *     properties: 
+ *       statusCode: 
+ *         type: string
+ *         default: "500"
+ *       message:
+ *         type: string
+ *         default: "Unable To Create Your Account. Please Try Again"
+ *   LoginUserResponse: 
+ *      type: object
+ *      properties:
+ *        message: 
+ *          type: string
+ *          default: "Login Successful"
+ *        token: 
+ *          type: string
+ *          default: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGQ0YWU5NmMxZWM2YTc4YmUyZTc1M2MiLCJ2YWxpZFRpbGwiOjE2OTk1OTMyNzI1MzAsImlhdCI6MTY5MTgxNzI3Mn0.fOruaSEhJg0opF0dJcGCxFD6JKA-hHd662oK-ZsZ5CA"
  */
 
 // Routes
@@ -125,7 +165,7 @@ router.get('/', authController.getHome);
  *       422:
  *         description: Unprocessable Entity
  *         schema:
- *           $ref: '#/definitions/InvalidResponse'
+ *           $ref: '#/definitions/InvalidRegisterResponse'
  */      
 router.post('/register',
 [
@@ -175,7 +215,7 @@ router.post('/register',
  *       200:
  *         description: Successful operation
  *         schema:
- *           $ref: '#/definitions/usersResponse'
+ *           $ref: '#/definitions/LoginUserResponse'
  *       422:
  *         description: Unprocessable Entity
  *         schema:

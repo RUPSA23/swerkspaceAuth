@@ -16,7 +16,7 @@ const swaggerOptions = {
           "type": "apiKey",
           "in": "header",
           "name": "authorization",
-          "description": "Bearer token to access these api endpoints",
+          "description": "Bearer token to access api endpoints",
           "scheme": "bearer"
         }
       },
@@ -30,7 +30,7 @@ const swaggerOptions = {
 };
 
   const swaggerDocs = swaggerJsdoc(swaggerOptions);
-  // console.log(swaggerDocs);
+  console.log(swaggerDocs);
 
 module.exports = swaggerDocs;
 

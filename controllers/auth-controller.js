@@ -50,6 +50,9 @@ exports.getHome = async (req, res) => {
             });
           
     } catch(err) {
+        res.status(500).send({
+          message: "Unable To Create Your Account. Please Try Again"
+        })
         console.log(err);
     }
 }
