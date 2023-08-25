@@ -86,7 +86,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties:
  *       statusCode:
  *         type: string
- *         default: "500"
+ *         default: "422"
  *       errors:
  *         type: string
  *   InvalidResponse:
@@ -94,7 +94,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties:
  *       statusCode:
  *         type: string
- *         default: "500"
+ *         default: "422"
  *       message:
  *         type: string
  *         default: "Unable To Generate JWT Token"
@@ -103,7 +103,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties: 
  *       statusCode: 
  *         type: string
- *         default: "500"
+ *         default: "422"
  *       message:
  *         type: string
  *         default: "Unable To Create Your Account. Please Try Again"
@@ -163,7 +163,7 @@ router.get('/', authController.getHome);
  *         schema:
  *           $ref: '#/definitions/usersResponse'
  *       422:
- *         description: Unprocessable Entity
+ *         description: unprocessable entity
  *         schema:
  *           $ref: '#/definitions/InvalidRegisterResponse'
  */      
@@ -217,7 +217,7 @@ router.post('/register',
  *         schema:
  *           $ref: '#/definitions/LoginUserResponse'
  *       422:
- *         description: Unprocessable Entity
+ *         description: Unprocessable entity
  *         schema:
  *           $ref: '#/definitions/InvalidResponse'
  */
@@ -258,8 +258,8 @@ authController.login);
  *         description: Logout successful
  *         schema:
  *           $ref: '#/definitions/LogoutResponse'
- *       500:
- *         description: Internal server error
+ *       422:
+ *         description: Unprocessable entity
  *         schema:
  *           $ref: '#/definitions/ErrorResponse'
  */
