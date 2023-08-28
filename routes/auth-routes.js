@@ -94,10 +94,10 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties:
  *       statusCode:
  *         type: string
- *         default: "422"
+ *         default: "403"
  *       message:
  *         type: string
- *         default: "Unable To Generate JWT Token"
+ *         default: "Please Enter valid field"
  *   InvalidRegisterResponse:
  *     type: object
  *     properties: 
@@ -116,6 +116,15 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *        message:
  *          type: string
  *          default: "Unable To Create Your Account. Please Try Again"
+ *   InternalErrorLogin:
+ *      type: object
+ *      properties: 
+ *        statusCode: 
+ *          type: string
+ *          default: "500"
+ *        message:
+ *          type: string
+ *          default: "Unable To Generate JWT Token"
  *   LoginUserResponse: 
  *      type: object
  *      properties:
@@ -229,10 +238,14 @@ router.post('/register',
  *         description: Successful operation
  *         schema:
  *           $ref: '#/definitions/LoginUserResponse'
- *       422:
- *         description: Unprocessable entity
+ *       403:
+ *         description: Validation Error
  *         schema:
  *           $ref: '#/definitions/InvalidResponse'
+ *       500:
+ *         description: Internal Server Error
+ *         schema:
+ *           $ref: '#/definitions/InternalErrorLogin'
  */
 router.post('/login',
 [
