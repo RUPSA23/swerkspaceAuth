@@ -103,10 +103,19 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties: 
  *       statusCode: 
  *         type: string
- *         default: "422"
+ *         default: "403"
  *       message:
  *         type: string
- *         default: "Unable To Create Your Account. Please Try Again"
+ *         default: "Please Enter valid field"
+ *   InternalServerErrorResponse: 
+ *      type: object
+ *      properties: 
+ *        statusCode: 
+ *          type: string
+ *          default: "500"
+ *        message:
+ *          type: string
+ *          default: "Unable To Create Your Account. Please Try Again"
  *   LoginUserResponse: 
  *      type: object
  *      properties:
@@ -162,10 +171,14 @@ router.get('/', authController.getHome);
  *         description: Successful operation
  *         schema:
  *           $ref: '#/definitions/usersResponse'
- *       422:
- *         description: unprocessable entity
+ *       403:
+ *         description: Validation Error
  *         schema:
  *           $ref: '#/definitions/InvalidRegisterResponse'
+ *       500: 
+ *          description: Internal Server Error
+ *          schema:
+ *            $ref: '#/definitions/InternalServerErrorResponse' 
  */      
 router.post('/register',
 [

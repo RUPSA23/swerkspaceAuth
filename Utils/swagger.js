@@ -30,7 +30,7 @@ const swaggerOptions = {
 };
 
   const swaggerDocs = swaggerJsdoc(swaggerOptions);
-  console.log(swaggerDocs);
+  // console.log(swaggerDocs);
 
 module.exports = swaggerDocs;
 
