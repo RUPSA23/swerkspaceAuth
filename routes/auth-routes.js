@@ -86,7 +86,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties:
  *       statusCode:
  *         type: string
- *         default: "422"
+ *         default: "500"
  *       errors:
  *         type: string
  *   InvalidResponse:
@@ -94,7 +94,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties:
  *       statusCode:
  *         type: string
- *         default: "403"
+ *         default: "422"
  *       message:
  *         type: string
  *         default: "Please Enter valid field"
@@ -103,7 +103,7 @@ router.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
  *     properties: 
  *       statusCode: 
  *         type: string
- *         default: "403"
+ *         default: "422"
  *       message:
  *         type: string
  *         default: "Please Enter valid field"
@@ -180,8 +180,8 @@ router.get('/', authController.getHome);
  *         description: Successful operation
  *         schema:
  *           $ref: '#/definitions/usersResponse'
- *       403:
- *         description: Validation Error
+ *       422:
+ *         description: Unprocessable Entity
  *         schema:
  *           $ref: '#/definitions/InvalidRegisterResponse'
  *       500: 
@@ -238,8 +238,8 @@ router.post('/register',
  *         description: Successful operation
  *         schema:
  *           $ref: '#/definitions/LoginUserResponse'
- *       403:
- *         description: Validation Error
+ *       422:
+ *         description: Unprocessable Entity
  *         schema:
  *           $ref: '#/definitions/InvalidResponse'
  *       500:
@@ -284,8 +284,8 @@ authController.login);
  *         description: Logout successful
  *         schema:
  *           $ref: '#/definitions/LogoutResponse'
- *       422:
- *         description: Unprocessable entity
+ *       500:
+ *         description: Internal Server Error
  *         schema:
  *           $ref: '#/definitions/ErrorResponse'
  */
